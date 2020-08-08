@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Zelda Store</title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=UJ7GpJNmg2KrCNNHXa4_r92wRIxaqu0u5kYAvr1xb7IgW6yCHxEbHos95i-BVmMXwOcbZcTGRP8ZCZ6-xhFI9_joyKm0h6lpoJCnN8LabiPyjdZm9YAuukeqSBkKYoMX5BSQYySNUbkvmVg_RqeZsQ" charset="UTF-8"></script><script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+        integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"
+        integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous">
+        </script>
+        <style>
+            body{
+                background-color: #BEC9B9}
+        </style>
+
+    <script>
+        window.onload = function () {
+            // Variables
+            let baseDeDatos = [
+                {
+                    id: 1,
+                    nombre: 'The Legend of Zelda - Ocarine of Time',
+                    precio: 400.00,
+                    imagen: 'https://upload.wikimedia.org/wikipedia/en/8/8e/The_Legend_of_Zelda_Ocarina_of_Time_box_art.png'
+                },
+                {
+                    id: 2,
+                    nombre: 'The Legend of Zelda - Majora´s Mask',
+                    precio: 350.00,
+                    imagen: 'https://www.retrogame-shop.com/shop/images/zeldamm.jpg'
+                },
+                {
+                    id: 3,
+                    nombre: 'The Legend of Zelda',
+                    precio: 500.00,
+                    imagen: 'https://giantbomb1.cbsistatic.com/uploads/original/9/93770/2361959-nes_legendofzelda_3.jpg'
+                },
+                {
+                    id: 4,
+                    nombre: 'The Legend of Zelda - Twilight Princess',
+                    precio: 850.00,
+                    imagen: 'http://dsmedia.ign.com/ds/image/object/572/572738/Zelda-Twilight-Princess_Cube_US_ESRB.jpg'
+                },
+                {
+                    id: 5,
+                    nombre: 'The Legend of Zelda - Skyward Sword',
+                    precio: 1099.00,
+                    imagen: 'https://www.lukiegames.com/assets/images/Wii/wii_zelda_skyward_sword_w_cd_p_nacqad.jpg'
+                },
+                {
+                    id: 6,
+                    nombre: 'The Legend of Zelda - A Link to the Past',
+                    precio: 750.00,
+                    imagen: 'https://www.mobygames.com/images/covers/large/1168701398-00.jpg'
+                },
+                {
+                    id: 7,
+                    nombre: 'The Legend of Zelda - Breath of the Wild',
+                    precio: 1599.00,
+                    imagen: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/eb140891-5c39-4370-8035-59ad91612fef/dav83sz-c9d09ef0-7a93-4ce2-a083-fb9b5a2f375d.jpg/v1/fill/w_400,h_652,q_75,strp/tloz_breath_of_the_wild_game_cover_2_by_gmivan-dav83sz.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sIm9iaiI6W1t7InBhdGgiOiIvZi9lYjE0MDg5MS01YzM5LTQzNzAtODAzNS01OWFkOTE2MTJmZWYvZGF2ODNzei1jOWQwOWVmMC03YTkzLTRjZTItYTA4My1mYjliNWEyZjM3NWQuanBnIiwid2lkdGgiOiI8PTQwMCIsImhlaWdodCI6Ijw9NjUyIn1dXX0.YUj4sob8XlPYMSaciVsB8dQfwygV9viozkupgzv3CJQ'
+                }
+
+            ]
+            let $items = document.querySelector('#items');
+            let carrito = [];
+            let total = 0;
+            let $carrito = document.querySelector('#carrito');
+            let $total = document.querySelector('#total');
+            // Funciones
+            function renderItems() {
+                for (let info of baseDeDatos) {
+                    // Estructura
+                    let miNodo = document.createElement('div');
+                    miNodo.classList.add('card', 'col-sm-4');
+                    // Body
+                    let miNodoCardBody = document.createElement('div');
+                    miNodoCardBody.classList.add('card-body');
+                    // Titulo
+                    let miNodoTitle = document.createElement('h5');
+                    miNodoTitle.classList.add('card-title');
+                    miNodoTitle.textContent = info['nombre'];
+                    // Imagen
+                    let miNodoImagen = document.createElement('img');
+                    miNodoImagen.classList.add('img-fluid');
+                    miNodoImagen.setAttribute('src', info['imagen']);
+                    // Precio
+                    let miNodoPrecio = document.createElement('p');
+                    miNodoPrecio.classList.add('card-text','form-control');
+                    miNodoPrecio.textContent = '$' + info['precio'];
+                    // Boton 
+                    let miNodoBoton = document.createElement('button');
+                    miNodoBoton.classList.add('btn', 'btn-primary', 'form-control');
+                    miNodoBoton.textContent = 'Agregar';
+                    miNodoBoton.setAttribute('marcador', info['id']);
+                    miNodoBoton.addEventListener('click', anyadirCarrito);
+                    // Insertamos
+                    miNodoCardBody.appendChild(miNodoImagen);
+                    miNodoCardBody.appendChild(miNodoTitle);
+                    miNodoCardBody.appendChild(miNodoPrecio);
+                    miNodoCardBody.appendChild(miNodoBoton);
+                    miNodo.appendChild(miNodoCardBody);
+                    $items.appendChild(miNodo);
+                }
+            }
+
+            function anyadirCarrito() {
+                // Añadimos el Nodo a nuestro carrito
+                carrito.push(this.getAttribute('marcador'))
+                // Calculo el total
+                calcularTotal();
+                // Renderizamos el carrito 
+                renderizarCarrito();
+            }
+
+            function renderizarCarrito() {
+                // Vaciamos todo el html
+                $carrito.textContent = '';
+                // Quitamos los duplicados
+                let carritoSinDuplicados = [...new Set(carrito)];
+                // Generamos los Nodos a partir de carrito
+                carritoSinDuplicados.forEach(function (item, indice) {
+                    // Obtenemos el item que necesitamos de la variable base de datos
+                    let miItem = baseDeDatos.filter(function (itemBaseDatos) {
+                        return itemBaseDatos['id'] == item;
+                    });
+                    // Cuenta el número de veces que se repite el producto
+                    let numeroUnidadesItem = carrito.reduce(function (total, itemId) {
+                        return itemId === item ? total += 1 : total;
+                    }, 0);
+                    // Creamos el nodo del item del carrito
+                    let miNodo = document.createElement('li');
+                    miNodo.classList.add('list-group-item', 'text-right', 'mx-2');
+                    miNodo.textContent = `${numeroUnidadesItem} x ${miItem[0]['nombre']} - ${miItem[0]['precio']}$`;
+                    // Boton de borrar
+                    let miBoton = document.createElement('button');
+                    miBoton.classList.add('btn', 'btn-danger', 'mx-5');
+                    miBoton.textContent = 'X';
+                    miBoton.style.marginLeft = '1rem';
+                    miBoton.setAttribute('item', item);
+                    miBoton.addEventListener('click', borrarItemCarrito);
+                    // Mezclamos nodos
+                    miNodo.appendChild(miBoton);
+                    $carrito.appendChild(miNodo);
+                })
+            }
+
+            function borrarItemCarrito() {
+                console.log()
+                // Obtenemos el producto ID que hay en el boton pulsado
+                let id = this.getAttribute('item');
+                // Borramos todos los productos
+                carrito = carrito.filter(function (carritoId) {
+                    return carritoId !== id;
+                });
+                // volvemos a renderizar
+                renderizarCarrito();
+                // Calculamos de nuevo el precio
+                calcularTotal();
+            }
+
+            function calcularTotal() {
+                // Limpiamos precio anterior
+                total = 0;
+                // Recorremos el array del carrito
+                for (let item of carrito) {
+                    // De cada elemento obtenemos su precio
+                    let miItem = baseDeDatos.filter(function (itemBaseDatos) {
+                        return itemBaseDatos['id'] == item;
+                    });
+                    total = total + miItem[0]['precio'];
+                }
+                // Formateamos el total para que solo tenga dos decimales
+                let totalDosDecimales = total.toFixed(2);
+                // Renderizamos el precio en el HTML
+                $total.textContent = totalDosDecimales;
+            }
+            // Eventos
+
+            // Inicio
+            renderItems();
+        } 
+    </script>
+</head>
+
+<body>
+    <!--Barra de navegacion-->
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Triforce.svg/553px-Triforce.svg.png" width="30" height="30"
+                class="d-inline-block align-top" alt="" loading="lazy">
+            Zelda Store
+        </a>
+    </nav>
+    <br><br>
+    <div class="container" class="background-color:green">
+        <div class="row">
+            <!-- Elementos generados a partir del JSON -->
+            <main id="items" class="col-sm-8 row"></main>
+            <!-- Carrito -->
+            <aside class="col-sm-4">
+                <h2 style="text-align: center;">Productos en Carrito</h2>
+                <!-- Elementos del carrito -->
+                <ul id="carrito" class="list-group"></ul>
+                <hr>
+                <!-- Precio total -->
+                <p class="text-right">Total: <span id="total"></span>&dollar;</p>
+                <!-- Button trigger modal -->
+                <hr>
+                <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#staticBackdrop">
+                    Comprar
+                </button>
+                <hr><br><br>
+            </aside>
+        </div>
+    </div>
+
+    <!--Confirmacion de la compra-->
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">
+                        <div class="spinner-border text-info" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        Confirma tu compra
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Confirmar el pago de tu(s) productos
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal"
+                        data-target="#validado">
+                        Confirmar Compra
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+        <div class="modal fade" id="validado" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">
+                            <img src="https://icon-icons.com/icons2/936/PNG/32/correct-symbol_icon-icons.com_73609.png">
+                            Confirmacion de la compra</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        La compra se realizo con exito. Dentro de poco le llegará su comprobante
+                        <br>
+                        ¡Gracias por su compra!
+                        <br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="location.reload();">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
